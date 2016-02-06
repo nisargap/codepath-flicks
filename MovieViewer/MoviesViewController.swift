@@ -8,20 +8,23 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     
+    
     @IBOutlet weak var tableView: UITableView!
     var movies : [NSDictionary]?
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-
+    
+    
+    func loadDataFromNetwork(){
         // Do any additional setup after loading the view.
-        let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
+        let apiKey = "5dd6c193c804a3a2532bf89d43edefa7"
         let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        
+        // Display HUD right before the request is made
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+
         let request = NSURLRequest(
             URL: url!,
             cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
@@ -33,22 +36,45 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             delegateQueue: NSOperationQueue.mainQueue()
         )
         
+        
         let task: NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, response, error) in
+                
+                // hide the progress bar thing
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
                             print("response: \(responseDictionary)")
                             
-                            self.movies = responseDictionary["results"] as! [NSDictionary]
+                            self.movies = responseDictionary["results"] as? [NSDictionary]
                             self.tableView.reloadData()
                             
                     }
                 }
         })
         task.resume()
-    }
 
+        
+    }
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        loadDataFromNetwork()
+        refreshControl.endRefreshing()
+        tableView.reloadData()
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
+        // Initialize a UIRefreshControl
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
+        
+        loadDataFromNetwork()
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -83,7 +109,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         cell.posterView.setImageWithURL(imageUrl!)
         
-        print("row \(indexPath.row)")
+        //print("row \(indexPath.row)")
         return cell
         
     }
