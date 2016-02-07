@@ -12,6 +12,7 @@ import MBProgressHUD
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     
+    @IBOutlet weak var networkErrorView: UITextView!
     
     @IBOutlet weak var tableView: UITableView!
     var movies : [NSDictionary]?
@@ -43,6 +44,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 // hide the progress bar thing
                 MBProgressHUD.hideHUDForView(self.view, animated: true)
                 
+                if((error) != nil){
+                    print("There is an error")
+                    self.networkErrorView.hidden = false
+                }
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {

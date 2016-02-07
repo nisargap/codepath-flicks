@@ -18,9 +18,17 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
+                                <textView key="tableHeaderView" hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Network Error" textAlignment="natural" id="e71-Wp-da0">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="textColor" red="0.35530570149421692" green="0.90955519676208496" blue="0.36234104633331299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="27"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="138" id="XZG-ED-xlW" customClass="MovieCell" customModule="MovieViewer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="138"/>
+                                        <rect key="frame" x="0.0" y="66" width="320" height="138"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XZG-ED-xlW" id="m6v-ld-nO3">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="137.5"/>
@@ -60,6 +68,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Rfx-9e-eSv"/>
                     <connections>
+                        <outlet property="networkErrorView" destination="e71-Wp-da0" id="SKI-IL-qL2"/>
                         <outlet property="tableView" destination="zwy-ND-yZA" id="v1u-k0-yHF"/>
                     </connections>
                 </viewController>
