@@ -55,13 +55,17 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Network Error" textAlignment="natural" id="acU-tP-dJs">
-                                <rect key="frame" x="0.0" y="66" width="320" height="36"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MBe-za-z8x">
+                                <rect key="frame" x="0.0" y="66" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Network Error">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="networkErrorAct:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ovf-sZ-v0q"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -71,7 +75,7 @@
                         <outlet property="moviesCollectionView" destination="Z5z-Dy-Tra" id="1FC-sO-ViO"/>
                         <outlet property="navBar" destination="ef5-xZ-C7T" id="Og9-Rc-J3Y"/>
                         <outlet property="navTitleItem" destination="7ev-Si-W5j" id="p2C-cF-YwR"/>
-                        <outlet property="networkErrorView" destination="acU-tP-dJs" id="DXo-hd-rgI"/>
+                        <outlet property="networkErrorBtn" destination="MBe-za-z8x" id="HMQ-qr-ewF"/>
                         <segue destination="aCF-3v-IKx" kind="push" identifier="GoMovie" id="jBi-Za-RgQ"/>
                     </connections>
                 </viewController>

@@ -14,7 +14,12 @@ class MoviesViewController: UIViewController,UISearchBarDelegate, UICollectionVi
     @IBOutlet weak var moviesCollectionView: UICollectionView!
     @IBOutlet weak var navTitleItem: UINavigationItem!
     
-    @IBOutlet weak var networkErrorView: UITextView!
+    
+    @IBAction func networkErrorAct(sender: UIButton) {
+        loadDataFromNetwork(true)
+        moviesCollectionView.reloadData()
+    }
+    @IBOutlet weak var networkErrorBtn: UIButton!
     @IBOutlet weak var navBar: UINavigationBar!
     var searchBar : UISearchBar = UISearchBar()
     
@@ -53,13 +58,13 @@ class MoviesViewController: UIViewController,UISearchBarDelegate, UICollectionVi
                 }
                 if((error) != nil){
                     print("There is an error")
-                    self.networkErrorView.hidden = false
+                    self.networkErrorBtn.hidden = false
                 }
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
                             //print("response: \(responseDictionary)")
-                            
+                            self.networkErrorBtn.hidden = true
                             self.movies = responseDictionary["results"] as? [NSDictionary]
                             self.filteredMovies = self.movies
                             self.moviesCollectionView.reloadData()
