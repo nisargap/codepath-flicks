@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		216FB0CD1C6826A9001E5059 /* MovieCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216FB0CC1C6826A9001E5059 /* MovieCollectionCell.swift */; };
 		217ED5611C5FC42300B42808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217ED5601C5FC42300B42808 /* AppDelegate.swift */; };
 		217ED5661C5FC42300B42808 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 217ED5641C5FC42300B42808 /* Main.storyboard */; };
 		217ED5681C5FC42300B42808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 217ED5671C5FC42300B42808 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		216FB0CC1C6826A9001E5059 /* MovieCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCollectionCell.swift; sourceTree = "<group>"; };
 		217ED55D1C5FC42300B42808 /* MovieViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		217ED5601C5FC42300B42808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		217ED5651C5FC42300B42808 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				217ED5741C5FCE4A00B42808 /* Views */,
 				217ED5601C5FC42300B42808 /* AppDelegate.swift */,
 				217ED5641C5FC42300B42808 /* Main.storyboard */,
+				216FB0CC1C6826A9001E5059 /* MovieCollectionCell.swift */,
 				217ED5671C5FC42300B42808 /* Assets.xcassets */,
 				217ED5691C5FC42300B42808 /* LaunchScreen.storyboard */,
 				217ED56C1C5FC42300B42808 /* Info.plist */,
@@ -233,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				217ED5611C5FC42300B42808 /* AppDelegate.swift in Sources */,
+				216FB0CD1C6826A9001E5059 /* MovieCollectionCell.swift in Sources */,
 				217ED5731C5FC4AD00B42808 /* MoviesViewController.swift in Sources */,
 				217ED5761C5FD01200B42808 /* MovieCell.swift in Sources */,
 				21C687C31C6721E800CA1335 /* MovieSelected.swift in Sources */,

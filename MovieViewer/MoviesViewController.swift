@@ -9,14 +9,14 @@
 import UIKit
 import AFNetworking
 import MBProgressHUD
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate {
+class MoviesViewController: UIViewController,UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate{
 
+    @IBOutlet weak var moviesCollectionView: UICollectionView!
     @IBOutlet weak var navTitleItem: UINavigationItem!
     
-    @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var networkErrorView: UITextView!
+    @IBOutlet weak var navBar: UINavigationBar!
     var searchBar : UISearchBar = UISearchBar()
-    @IBOutlet weak var tableView: UITableView!
     
     var movies : [NSDictionary]?
     var filteredMovies : [NSDictionary]?
@@ -41,13 +41,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             delegateQueue: NSOperationQueue.mainQueue()
         )
         // hide the progress bar thing
-        let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        loadingNotification.mode = MBProgressHUDMode.Indeterminate
-        loadingNotification.labelText = "Loading"
+        if(firstTime == true){
+            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.Indeterminate
+            loadingNotification.labelText = "Loading"
+        }
         let task: NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, response, error) in
-                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-                
+                if(firstTime == true){
+                    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                }
                 if((error) != nil){
                     print("There is an error")
                     self.networkErrorView.hidden = false
@@ -56,12 +59,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
                             //print("response: \(responseDictionary)")
-                            print("here")
                             
                             self.movies = responseDictionary["results"] as? [NSDictionary]
                             self.filteredMovies = self.movies
-                            self.tableView.reloadData()
-                            
+                            self.moviesCollectionView.reloadData()
                     }
                 }
         })
@@ -90,24 +91,26 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 }
             })
         }
-        tableView.reloadData()
+        moviesCollectionView.reloadData()
     }
     func refreshControlAction(refreshControl: UIRefreshControl) {
         loadDataFromNetwork()
         refreshControl.endRefreshing()
-        tableView.reloadData()
+        moviesCollectionView.reloadData()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
+        
+        moviesCollectionView.dataSource = self
+        moviesCollectionView.delegate = self
+        moviesCollectionView.alwaysBounceVertical = true
         searchBar.delegate = self
         searchBar.sizeToFit()
         navTitleItem.titleView = searchBar
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
-        tableView.insertSubview(refreshControl, atIndex: 0)
+        moviesCollectionView.addSubview(refreshControl)
         loadDataFromNetwork(true)
         
     }
@@ -125,17 +128,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         self.searchBar.showsCancelButton = true
-        tableView.reloadData()
+        moviesCollectionView.reloadData()
     }
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
         filteredMovies = movies
-        tableView.reloadData()
+        moviesCollectionView.reloadData()
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let movies = self.filteredMovies {
             
             return movies.count
@@ -143,41 +145,26 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             
             return 0
         }
-        
+
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
-        let movie = filteredMovies![indexPath.row]
-        performSegueWithIdentifier("GoMovie", sender: movie)
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        
-    }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+         let cell = moviesCollectionView.dequeueReusableCellWithReuseIdentifier("com.nisarga.MovieCell", forIndexPath: indexPath) as! MovieCollectionCell
         
         let movie = filteredMovies![indexPath.row]
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
         let posterPath = movie["poster_path"] as! String
-        let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         
         let imageUrl = NSURL(string: baseUrl + posterPath)
         
-        cell.titleLabel.text = title
-        let cellBGView = UIView()
-        cellBGView.backgroundColor = UIColor(red: 0, green: 0, blue: 200, alpha: 0.4)
-        cell.selectedBackgroundView = cellBGView
+        cell.moviePoster.setImageWithURL(imageUrl!)
         
-        cell.overviewLabel.text = overview
-        
-        cell.posterView.setImageWithURL(imageUrl!)
-        
-        //print("row \(indexPath.row)")
         return cell
-        
     }
-
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let movie = filteredMovies![indexPath.row]
+        performSegueWithIdentifier("GoMovie", sender: movie)
+    }
     /*
     // MARK: - Navigation
 
