@@ -3,7 +3,7 @@
 Note this is only the project setup
 **Movie Flicks** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **6.0** hours spent in total in week 1
+Time spent: **6.0** hours spent in total in week 1<br>
 Time spent: **4.5** hours spent in total in week 2
 
 ## User Stories
@@ -56,10 +56,10 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-**WEEK 2**
+**WEEK 2** <br>
 <img src='http://i.imgur.com/cxds5vo.gif' title='Video Walkthrough 1' width='' alt='Video Walkthrough 1' /><br>
 
-**WEEK 1**
+**WEEK 1** <br>
 <img src='http://i.imgur.com/Qh4JIxg.gif' title='Video Walkthrough 1' width='' alt='Video Walkthrough 1' /><br>
 <img src='http://i.imgur.com/Y30Hrhy.gif' title='Video Walkthrough 2' width='' alt='Video Walkthrough 2' /><br>
 <img src='http://i.imgur.com/6DsyohB.gif' title='Video Walkthrough 3' width='' alt='Video Walkthrough 3' /><br>
