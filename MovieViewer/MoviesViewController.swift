@@ -25,11 +25,12 @@ class MoviesViewController: UIViewController,UISearchBarDelegate, UICollectionVi
     
     var movies : [NSDictionary]?
     var filteredMovies : [NSDictionary]?
+    var endpoint : String!
     
     func loadDataFromNetwork(firstTime : Bool = false){
         // Do any additional setup after loading the view.
         let apiKey = "5dd6c193c804a3a2532bf89d43edefa7"
-        let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        let url = NSURL(string: "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
         
         // Display HUD right before the request is made
   
@@ -86,7 +87,7 @@ class MoviesViewController: UIViewController,UISearchBarDelegate, UICollectionVi
             // Use the filter method to iterate over all items in the data array
             // For each item, return true if the item should be included and false if the
             // item should NOT be included
-            filteredMovies = movies!.filter({(movObj: NSDictionary) -> Bool in
+            filteredMovies = movies?.filter({(movObj: NSDictionary) -> Bool in
                 // If dataItem matches the searchText, return true to include it
                 let movieTitle = movObj["title"] as? String
                 if movieTitle!.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil{
@@ -95,6 +96,7 @@ class MoviesViewController: UIViewController,UISearchBarDelegate, UICollectionVi
                     return false
                 }
             })
+            
         }
         moviesCollectionView.reloadData()
     }
@@ -111,21 +113,35 @@ class MoviesViewController: UIViewController,UISearchBarDelegate, UICollectionVi
         moviesCollectionView.alwaysBounceVertical = true
         searchBar.delegate = self
         searchBar.sizeToFit()
+        searchBar.tintColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        searchBar.barTintColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        searchBar.searchBarStyle = UISearchBarStyle.Minimal
+        let searchFieldText = searchBar.valueForKey("searchField") as? UITextField
+        
+        searchFieldText!.textColor = UIColor(red: 1.0, green: 224/255, blue: 25/255, alpha: 1.0)
+        
+        
         navTitleItem.titleView = searchBar
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
         moviesCollectionView.addSubview(refreshControl)
         loadDataFromNetwork(true)
+        self.navigationController?.navigationBarHidden = true
+
         
     }
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         //loadDataFromNetwork()
         self.navigationController?.navigationBarHidden = true
+        self.tabBarController!.tabBar.hidden = false
+        
+
 
     }
     override func viewDidDisappear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.navigationBarHidden = true
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -163,7 +179,6 @@ class MoviesViewController: UIViewController,UISearchBarDelegate, UICollectionVi
         let imageUrl = NSURL(string: baseUrl + posterPath)
         
         cell.moviePoster.setImageWithURL(imageUrl!)
-        
         return cell
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

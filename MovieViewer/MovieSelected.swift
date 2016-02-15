@@ -11,15 +11,18 @@ import AFNetworking
 import XCDYouTubeKit
 
 class MovieSelected: UIViewController {
-
+    
+    @IBOutlet weak var movieScrollView: UIScrollView!
     var movieInfo : NSDictionary?
     var trailerLinks : [NSDictionary]?
     var trailerLink : String?
     var movieId : Int?
-    @IBOutlet weak var movieDescriptors: UITextView!
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var trailerBtnRef: UIButton!
-    @IBOutlet weak var summaryText: UITextView!
+    
+    @IBOutlet weak var dateInfo: UILabel!
+    @IBOutlet weak var ratingInfo: UILabel!
+    @IBOutlet weak var infoView: UIView!
     @IBAction func trailerBtn(sender: UIButton) {
         
         if self.trailerLinks! != [] {
@@ -37,6 +40,9 @@ class MovieSelected: UIViewController {
         }
         
     }
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var overviewLabel: UILabel!
     func playVideo(key : String){
         let videoPlayController = XCDYouTubeVideoPlayerViewController(videoIdentifier: key)
         self.presentMoviePlayerViewControllerAnimated(videoPlayController)
@@ -45,6 +51,11 @@ class MovieSelected: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBarHidden = false
+        self.tabBarController!.tabBar.hidden = true
+        self.trailerBtnRef.setImage(UIImage(named: "trailer"), forState: .Normal)
+        
+        
+            
         // Do any additional setup after loading the view.
         /*
         let base = "http://image.tmdb.org/t/p/w500"
@@ -60,6 +71,8 @@ class MovieSelected: UIViewController {
         
         self.view.backgroundColor = UIColor(patternImage: backdropImage!)
 */
+        movieScrollView.contentSize = CGSize(width: movieScrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
+        
         let base = "http://image.tmdb.org/t/p/w500"
         let posterPath = movieInfo!["poster_path"] as? String
         let imageURL = NSURL(string : base  + posterPath!)
@@ -101,14 +114,19 @@ class MovieSelected: UIViewController {
         let overview = movieInfo!["overview"] as? String
         self.movieId = movieInfo!["id"] as? Int
         getYoutubeLinks(self.movieId!)
-
-        summaryText.text = overview
+        titleLabel.text = movieInfo!["title"] as? String
+        overviewLabel.text = overview
+        overviewLabel.sizeToFit()
         let nf = NSNumberFormatter()
+        
         nf.maximumSignificantDigits = 2
         nf.numberStyle = .DecimalStyle
-        movieDescriptors.text = "Rating: " + nf.stringFromNumber(rating!)! + "\n" + "Vote Count: " + nf_one.stringFromNumber(votes!)!
+        dateInfo.text = dateString
+        ratingInfo.text = nf.stringFromNumber(rating!)! + "/10 from " + nf_one.stringFromNumber(votes!)! + " votes"
         
-        movieDescriptors.text = movieDescriptors.text + "\n" + "Release Date: " + dateString
+        //movieDescriptors.text = "Rating: " + nf.stringFromNumber(rating!)! + "\n" + "Vote Count: " + nf_one.stringFromNumber(votes!)!
+        
+        //movieDescriptors.text = movieDescriptors.text + "\n" + "Release Date: " + dateString
         
         
     }
@@ -160,7 +178,16 @@ class MovieSelected: UIViewController {
         
         
     }
-
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        //loadDataFromNetwork()
+        self.navigationController?.navigationBarHidden = false
+        
+        
+    }
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

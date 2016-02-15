@@ -13,9 +13,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    func sizeMyIcon(iconName : String) -> UIImage{
+        
+        let npImage = UIImage(named: iconName)
+        let resizedImage = UIImage(CGImage: npImage!.CGImage!, scale: 1.75, orientation: (npImage?.imageOrientation)!)
+        return resizedImage
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let nowplayingNav = storyboard.instantiateViewControllerWithIdentifier("mainNav") as! UINavigationController
+        let nowplayingView = nowplayingNav.topViewController as! MoviesViewController
+        nowplayingView.endpoint = "now_playing"
+        nowplayingNav.tabBarItem.title = "Now Playing"
+        
+        nowplayingNav.tabBarItem.image = sizeMyIcon("now_playing")
+        
+        let trplayingNav = storyboard.instantiateViewControllerWithIdentifier("mainNav") as! UINavigationController
+        let trplayingView = trplayingNav.topViewController as! MoviesViewController
+        trplayingView.endpoint = "top_rated"
+        trplayingNav.tabBarItem.title = "Top Rated"
+        trplayingNav.tabBarItem.image = sizeMyIcon("top_rated")
+        
+        let upplayingNav = storyboard.instantiateViewControllerWithIdentifier("mainNav") as! UINavigationController
+        let upplayingView = upplayingNav.topViewController as! MoviesViewController
+        upplayingView.endpoint = "popular"
+        upplayingNav.tabBarItem.title = "Popular"
+        upplayingNav.tabBarItem.image = sizeMyIcon("popular")
+        
+        let tabControl = UITabBarController()
+        tabControl.viewControllers = [nowplayingNav, trplayingNav, upplayingNav]
+        tabControl.tabBar.barTintColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        tabControl.tabBar.tintColor = UIColor(red: 1.0, green: 224/255, blue: 25/255, alpha: 1.0)
+
+        
+        window?.rootViewController = tabControl
+        window?.makeKeyAndVisible()
+        
+        
         return true
     }
 

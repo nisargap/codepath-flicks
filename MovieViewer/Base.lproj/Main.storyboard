@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--Movies View Controller-->
+        <!--Movies-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="MainController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="MoviesViewController" customModule="MovieViewer" customModuleProvider="target" sceneMemberID="viewController">
@@ -70,7 +70,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                     </view>
-                    <navigationItem key="navigationItem" id="Rfx-9e-eSv" userLabel="Nav Bar"/>
+                    <navigationItem key="navigationItem" title="Movies" id="Rfx-9e-eSv" userLabel="Nav Bar"/>
                     <connections>
                         <outlet property="moviesCollectionView" destination="Z5z-Dy-Tra" id="1FC-sO-ViO"/>
                         <outlet property="navBar" destination="ef5-xZ-C7T" id="Og9-Rc-J3Y"/>
@@ -91,47 +91,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="klk-Dm-hr6">
-                                <rect key="frame" x="9" y="69" width="158" height="217"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="kci-EQ-vU3">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rHs-P0-haE">
-                                <rect key="frame" x="9" y="294" width="141" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.43404368455497377" green="0.43404368455497377" blue="0.43404368455497377" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="23"/>
-                                <state key="normal" title="Watch Trailer">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="trailerBtn:" destination="aCF-3v-IKx" eventType="touchDown" id="VVL-Y8-gX5"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="I7v-lz-kxr">
-                                <rect key="frame" x="9" y="346" width="284" height="216"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="Oie-ac-MIT">
-                                <rect key="frame" x="170" y="69" width="144" height="217"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="klk-Dm-hr6">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="553"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <view alpha="0.80000000000000004" contentMode="scaleToFill" id="z6N-T6-wQQ">
+                                        <rect key="frame" x="0.0" y="430" width="320" height="450"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HvI-VI-FZV">
+                                                <rect key="frame" x="8" y="8" width="304" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dateInfo" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bPW-z8-WYV">
+                                                <rect key="frame" x="8" y="28" width="304" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ratingInfo" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="b3C-ID-gqM">
+                                                <rect key="frame" x="8" y="51" width="304" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i6b-Uz-NEi">
+                                                <rect key="frame" x="8" y="73" width="304" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rHs-P0-haE">
+                                                <rect key="frame" x="257" y="28" width="40" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="14"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="trailerBtn:" destination="aCF-3v-IKx" eventType="touchDown" id="VVL-Y8-gX5"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.25985765706806285" green="0.25985765706806285" blue="0.25985765706806285" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="jhU-j9-ilV"/>
                     <connections>
-                        <outlet property="movieDescriptors" destination="Oie-ac-MIT" id="2fx-0o-ekB"/>
+                        <outlet property="dateInfo" destination="bPW-z8-WYV" id="IdA-JL-AeK"/>
+                        <outlet property="infoView" destination="z6N-T6-wQQ" id="fhR-bu-Rf8"/>
+                        <outlet property="movieScrollView" destination="kci-EQ-vU3" id="zqG-TV-opb"/>
+                        <outlet property="overviewLabel" destination="i6b-Uz-NEi" id="DHM-gx-mwR"/>
                         <outlet property="posterImage" destination="klk-Dm-hr6" id="BMS-wD-sva"/>
-                        <outlet property="summaryText" destination="I7v-lz-kxr" id="QcD-VV-Rm2"/>
+                        <outlet property="ratingInfo" destination="b3C-ID-gqM" id="h29-lX-Hj4"/>
+                        <outlet property="titleLabel" destination="HvI-VI-FZV" id="ZSA-Aa-t1l"/>
                         <outlet property="trailerBtnRef" destination="rHs-P0-haE" id="ggI-4G-0sz"/>
                         <segue destination="zxs-Mh-NRK" kind="push" id="2Rz-R3-euC"/>
                     </connections>
@@ -143,7 +171,7 @@
         <!--Navigation Controller-->
         <scene sceneID="sxH-FT-B48">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zxs-Mh-NRK" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainNav" automaticallyAdjustsScrollViewInsets="NO" id="zxs-Mh-NRK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="BUs-c2-5Zd"/>
                     <navigationBar key="navigationBar" alpha="0.5" contentMode="scaleToFill" id="IWZ-sa-dM4">
